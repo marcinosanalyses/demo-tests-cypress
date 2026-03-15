@@ -48,50 +48,41 @@ describe('DCG Homepage Tests - EN Version', () => {
 };
 
 it('should filter job offers by location and verify results', () => {
-  const city = 'Warszawa';
-  const expectedText = 'Warsaw';
+    const city = 'Warszawa';
+    const expectedText = 'Warsaw'; // Adjust to 'Warszawa' if the results page is in Polish
 
-  // --- 1. Setup & Navigation ---
-  cy.task('log', `🔍 Testing Filter: ${city}`);
-  cy.navigateToJobOffers();
+    // --- 1. Main Process: Navigation & Logging ---
+    cy.task('log', `🔍 Starting job filter test for: ${city}`);
+    cy.navigateToJobOffers();
 
-  // --- 2. Interaction ---
-  cy.selectRegion(city);
-  
-  // Use .click() with a guard to ensure we don't move on until the page starts unloading
-  cy.get('input.searchN-submit').first().click();
-  cy.task('log', '🚀 Form submitted. Waiting for redirect...');
+    // --- 2. Main Process: Interaction ---
+    cy.selectRegion(city);
+    cy.get('input.searchN-submit').first().click();
+    cy.task('log', '🚀 Form submitted. Redirecting to dcg.pl...');
 
-  // --- 3. Cross-Origin Validation ---
-  const originUrl = 'https://dcg.pl';
-  
-  // Pass only what is needed to the origin "sandbox"
-  cy.origin(originUrl, { args: { city, expectedText } }, ({ city, expectedText }) => {
-    
-    // Internal Helper: Handle cookie banner quickly
-    const acceptCookies = () => {
+    // --- 3. Cross-Origin Sandbox ---
+    cy.origin('https://dcg.pl', { args: { city, expectedText } }, ({ city, expectedText }) => {
+      
+      // Internal helper for the cookie banner (since we can't use tasks here)
       const selector = 'button[data-cky-tag="accept-button"], button.cky-btn-accept';
       cy.get('body').then(($body) => {
         if ($body.find(selector).length > 0) {
           cy.get(selector).first().click({ force: true });
         }
       });
-    };
 
-    acceptCookies();
+      // Assertions: Ensure results exist and contain the text
+      cy.get('.job_box', { timeout: 15000 })
+        .should('be.visible')
+        .and('have.length.at.least', 1)
+        .first()
+        .should('contain.text', expectedText);
 
-    // --- 4. Assertions ---
-    // We combine the check for existence and text content for a cleaner flow
-    cy.get('.job_box', { timeout: 12000 })
-      .should('be.visible')
-      .and('have.length.at.least', 1)
-      .first()
-      .should('contain.text', expectedText);
-
-    // Final Reporting
-    cy.get('.job_box').its('length').then((count) => {
-      cy.task('log', `✅ Success: Found ${count} jobs in ${city}`);
+      // Return the number of jobs found back to the main process
+      return cy.get('.job_box').its('length');
+      
+    }).then((jobCount) => {
+      cy.task('log', `✅ Success: Found ${jobCount} jobs in ${city} on the results page.`);
     });
   });
-});
 });
