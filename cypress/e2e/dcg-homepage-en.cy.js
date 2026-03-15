@@ -54,13 +54,19 @@ describe('DCG Homepage Tests - EN Version', () => {
   });
 
   it('should filter job offers by location and verify results', () => {
+    // Log to terminal
+    cy.task('log', '🔍 Rozpoczynam test filtrowania ofert pracy (wersja EN)');
+    cy.task('log', 'ℹ️ Test będzie przechodził z diversecg.co.uk na dcg.pl');
+    
     // Navigate to job offers page
     cy.log('Starting job offers filter test');
     cy.navigateToJobOffers();
+    cy.task('log', '✅ Przejście do strony z ofertami pracy (EN)');
     
     // Log current URL to debug
     cy.url().then((url) => {
       cy.log(`URL after navigateToJobOffers: ${url}`);
+      cy.task('log', `📋 Aktualny URL: ${url}`);
     });
     
     // Find and click on the region/location filter dropdown
@@ -74,9 +80,11 @@ describe('DCG Homepage Tests - EN Version', () => {
     
     // Click the submit button - this will cause cross-origin navigation to dcq.pl
     cy.get('input.searchN-submit').click();
+    cy.task('log', '🚀 Wysłanie formularza filtrowania (przejście na dcg.pl)');
     
     // We're navigating to Polish site (dcg.pl), so we need cy.origin
     cy.origin('https://dcg.pl', () => {
+      cy.log('🔀 Przeszedłem na stronę dcg.pl (cross-origin)');
       // Handle consent banner if it appears (can't use custom command inside cy.origin)
       cy.get('body').then(($body) => {
         const banner = $body.find('.cky-consent-bar');
