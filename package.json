@@ -1,0 +1,13 @@
+{
+  "name": "demo-tests-cypress",
+  "version": "1.0.0",
+  "description": "Cypress demo tests",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^15.12.0",
+    "electron": "^41.0.2"
+  }
+}

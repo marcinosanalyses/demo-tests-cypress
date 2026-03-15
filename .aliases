@@ -1,0 +1,26 @@
+# Cypress Project Aliases
+# Source this file in your shell: source .aliases
+
+# Cypress commands
+alias cy:open='npm run cypress:open'
+alias cy:run='npm run cypress:run'
+
+# Quick navigation
+alias cy:e2e='cd cypress/e2e'
+alias cy:support='cd cypress/support'
+
+# Run specific test files
+alias cy:test='npx cypress run --spec'
+alias cy:open-test='npx cypress open --e2e -b electron'
+
+# Debugging
+alias cy:debug='npx cypress open --e2e -b electron --devtools'
+
+# Useful commands
+alias cy:verify='npx cypress verify'
+alias cy:info='npx cypress info'
+alias cy:cache='npx cypress cache list'
+
+# Install/Update
+alias cy:install='npx cypress install'
+alias cy:update='npm update cypress'
