@@ -75,5 +75,15 @@ describe('DCG Homepage Tests - PL Version', () => {
     // Verify the results contain Warsaw location
     cy.get('.job_box').first().should('contain.text', 'Warsaw');
   });
-      cy.switchLanguage('en');
+
+  it('should switch to English language successfully', () => {
+    // Switch to English language
+    cy.switchLanguage('en');
+    
+    // Verify we're on English site
+    cy.url().should('include', 'diversecg.co.uk');
+    
+    // Verify English language is active
+    cy.verifyActiveLanguage('en');
+  });
 });
