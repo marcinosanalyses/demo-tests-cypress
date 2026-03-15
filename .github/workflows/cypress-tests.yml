@@ -16,6 +16,15 @@ on:
           - all
           - pl
           - en
+      environment:
+        description: 'Select environment'
+        required: true
+        default: 'prod'
+        type: choice
+        options:
+          - prod
+          - staging
+          - dev
 
 jobs:
   cypress-tests:
@@ -54,7 +63,7 @@ jobs:
           spec: ${{ steps.spec.outputs.spec }}
           cache-key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         env:
-          # Add any environment variables if needed
+          CYPRESS_ENVIRONMENT: ${{ github.event.inputs.environment || 'prod' }}
           CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL || 'https://dcg.pl' }}
 
       - name: Upload screenshots on failure
