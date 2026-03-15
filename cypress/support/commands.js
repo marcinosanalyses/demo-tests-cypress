@@ -17,6 +17,20 @@ Cypress.Commands.add('verifyActiveLanguage', (lang) => {
   cy.get('.menu-lang-box .menu-lang p.active-lang').should('contain.text', lang);
 });
 
+// Command to navigate to job offers page
+Cypress.Commands.add('navigateToJobOffers', () => {
+  // Scroll down multiple times to reach the nav
+  cy.scrollTo(0, 500);
+  cy.scrollTo(0, 1000);
+  cy.scrollTo(0, 1500);
+  
+  // Find and click the job offers link
+  cy.get('nav ul li a[href*="kariera"]').click({ force: true });
+  
+  // Verify we're on job offers page
+  cy.url().should('include', 'kariera');
+});
+
 // Command to verify navigation menu
 Cypress.Commands.add('verifyNavigationMenu', (minItems = 9) => {
   // Scroll down multiple times to reach the nav

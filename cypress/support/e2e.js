@@ -4,6 +4,9 @@
 // Import custom commands
 import './commands';
 
+// Import mochawesome reporter
+import 'cypress-mochawesome-reporter/register';
+
 // Configure behavior
 Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from failing the test

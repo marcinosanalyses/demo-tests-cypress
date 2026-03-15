@@ -5,6 +5,7 @@ node_modules/
 cypress/videos/
 cypress/screenshots/
 cypress/results/
+cypress/reports/
 
 # OS files
 .DS_Store

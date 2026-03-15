@@ -3,11 +3,25 @@
   "version": "1.0.0",
   "description": "Cypress demo tests",
   "scripts": {
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:test": "cypress run --spec",
+    "cy:open-test": "cypress open --e2e -b electron",
+    "cy:debug": "cypress open --e2e -b electron --devtools",
+    "cy:verify": "cypress verify",
+    "cy:info": "cypress info",
+    "cy:cache": "cypress cache list",
+    "cy:install": "cypress install",
+    "test:pl": "cypress run --spec cypress/e2e/dcg-homepage.cy.js",
+    "test:en": "cypress run --spec cypress/e2e/dcg-homepage-en.cy.js",
+    "test:all": "cypress run",
+    "test:job-offers": "cypress run --spec cypress/e2e/dcg-homepage.cy.js",
+    "test:job-offers:headed": "cypress run --spec cypress/e2e/dcg-homepage.cy.js --browser firefox --headed",
+    "test:report": "cypress run && open cypress/reports/html/mochawesome-*.html"
   },
   "devDependencies": {
     "cypress": "^15.12.0",
+    "cypress-mochawesome-reporter": "^4.0.2",
     "electron": "^41.0.2"
   }
 }
