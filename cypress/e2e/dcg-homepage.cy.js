@@ -56,6 +56,9 @@ describe('DCG Homepage Tests - PL Version', () => {
     // Click the submit button
     cy.get('input.searchN-submit').click();
     
+    // Accept consent banner if it appears
+    cy.acceptConsentBanner();
+    
     // Wait for results to load
     cy.get('.job_box', { timeout: 10000 }).should('exist');
     
@@ -64,14 +67,6 @@ describe('DCG Homepage Tests - PL Version', () => {
       const jobCount = $jobs.length;
       const message = `Found ${jobCount} jobs in Warsaw`;
       cy.log(message);
-      cy.task('log', message);
-      
-      // Add context to the report for better visibility
-      Cypress.log({
-        name: 'Job Count',
-        message: message,
-        displayName: '📊 Results',
-      });
     });
     
     // Verify at least 1 result is displayed
@@ -80,4 +75,5 @@ describe('DCG Homepage Tests - PL Version', () => {
     // Verify the results contain Warsaw location
     cy.get('.job_box').first().should('contain.text', 'Warsaw');
   });
+      cy.switchLanguage('en');
 });

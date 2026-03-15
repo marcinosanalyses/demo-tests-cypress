@@ -17,6 +17,7 @@
     "test:all": "cypress run",
     "test:job-offers": "cypress run --spec cypress/e2e/dcg-homepage.cy.js",
     "test:job-offers:headed": "cypress run --spec cypress/e2e/dcg-homepage.cy.js --browser firefox --headed",
+    "test:job-offers:en:headed": "cypress run --spec cypress/e2e/dcg-homepage-en.cy.js --browser firefox --headed",
     "test:report": "cypress run && open cypress/reports/html/mochawesome-*.html"
   },
   "devDependencies": {
