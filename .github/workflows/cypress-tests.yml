@@ -1,4 +1,4 @@
-name: Cypress Tests
+name: E2E Tests
 
 on:
   push:
@@ -52,6 +52,7 @@ jobs:
         with:
           browser: firefox
           spec: ${{ steps.spec.outputs.spec }}
+          cache-key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         env:
           # Add any environment variables if needed
           CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL || 'https://dcg.pl' }}
