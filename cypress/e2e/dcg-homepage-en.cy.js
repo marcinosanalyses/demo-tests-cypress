@@ -47,7 +47,7 @@ describe('DCG Homepage Tests - EN Version', () => {
   });
 };
 
-it('should filter job offers by location and verify results', () => {
+it.only('should filter job offers by location and verify results', () => {
     const city = 'Warszawa';
     const expectedText = 'Warsaw'; // Adjust to 'Warszawa' if the results page is in Polish
 

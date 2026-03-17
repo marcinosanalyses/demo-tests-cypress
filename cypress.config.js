@@ -31,6 +31,8 @@ module.exports = defineConfig({
           return null;
         },
       });
+      
+      return config;
     },
   },
 });
